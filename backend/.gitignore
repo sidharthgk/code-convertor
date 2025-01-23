@@ -1,0 +1,11 @@
+# Python virtual environment
+.venv/
+
+# Compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Vercel-specific
+.vercel/
+output/
