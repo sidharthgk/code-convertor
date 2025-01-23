@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 
 const LANGUAGES = [
   'Python', 'JavaScript', 'Java', 'C++', 'Ruby', 'Go', 'Rust', 'Swift'
@@ -20,13 +19,20 @@ function CodeTranslator() {
 
     setLoading(true);
     try {
-      const response = await axios.post('/translate', {
-        code: inputCode,
-        source_language: sourceLanguage,
-        target_language: targetLanguage
+      const response = await fetch('https://code-convertor-w5g7-lnhovvm5l-sidharth-gks-projects.vercel.app/api/translate_code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          code: inputCode,
+          source_language: sourceLanguage,
+          target_language: targetLanguage,
+        }),
       });
 
-      setTranslatedCode(response.data.translated_code);
+      const data = await response.json();
+      setTranslatedCode(data.translated_code);
     } catch (error) {
       console.error('Translation error:', error);
       alert('Translation failed');
